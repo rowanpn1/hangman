@@ -85,7 +85,7 @@ const server = http.createServer((req, res) => {
       res.end();
       break;
     case '/highscores':
-      // send a JSON response with the high scores
+      // send a HTML response with the high scores
       const scores = [
         { username: 'Alice', score: 10 },
         { username: 'Bob', score: 8 },
@@ -93,10 +93,63 @@ const server = http.createServer((req, res) => {
         { username: 'Dave', score: 4 },
         { username: 'Eve', score: 2 }
       ];
-      res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify(scores));
+      // sort the high scores in descending order by score
+      scores.sort((a, b) => b.score - a.score);
+
+      // generate an HTML table of the high scores
+      let table = '<h1>High Scores</h1>';
+      table += '<table>';
+      table += '<thead>';
+      table += '<tr><th>Username</th><th>Score</th></tr>';
+      table += '</thead>';
+      table += '<tbody>';
+      for (let i = 0; i < scores.length; i++) {
+        const score = scores[i];
+        table += `<tr><td>${score.username}</td><td>${score.score}</td></tr>`;
+      }
+      table += '</tbody>';
+      table += '</table>';
+
+      // send the HTML response
+      res.setHeader('Content-Type', 'text/html');
+      res.write('<!DOCTYPE html>');
+      res.write('<html>');
+      res.write('<head>');
+      res.write('<meta charset="utf-8">');
+      res.write('<title>High Scores</title>');
+      res.write('<style>');
+      res.write('body {');
+      res.write('  font-family: Arial, sans-serif;');
+      res.write('  background-color: #F0F0F0;');
+      res.write('}');
+      res.write('h1 {');
+      res.write('  text-align: center;');
+      res.write('  margin-top: 50px;');
+      res.write('}');
+      res.write('table {');
+      res.write('  border-collapse: collapse;');
+      res.write('  margin: 50px auto;');
+      res.write('}');
+      res.write('thead {');
+      res.write('  background-color: #0066CC;');
+      res.write('  color: #FFF;');
+      res.write('}');
+      res.write('th, td {');
+      res.write('  padding: 10px;');
+      res.write('  border: 1px solid #CCC;');
+      res.write('  text-align: left;');
+      res.write('}');
+      res.write('tr:nth-child(even) {');
+      res.write('  background-color: #F0F0F0;');
+      res.write('}');
+      res.write('</style>');
+      res.write('</head>');
+      res.write('<body>');
+      res.write(table);
+      res.write('</body>');
+      res.write('</html>');
+      res.end();
       break;
-    default:
       // send a 404 response if the path is not recognized
       res.setHeader('Content-Type', 'text/plain');
       res.statusCode = 404;
