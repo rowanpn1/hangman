@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "hangman",
+  "version": "1.0.0",
+  "description": "apw hangman project",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rowanpn1/hangman.git"
+  },
+  "keywords": [
+    "rowan",
+    "apw-js"
+  ],
+  "author": "anhna ho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rowanpn1/hangman/issues"
+  },
+  "homepage": "https://github.com/rowanpn1/hangman#readme"
+}
