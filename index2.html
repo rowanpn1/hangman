@@ -1,0 +1,178 @@
+<!DOCTYPE html><!-- Author: Vikash Agrawal <vikashagrawal1990@gmail.com --><html><head>
+    <title>Stickfigure</title>
+    <style>
+        #BodyX
+        { 
+            width: auto;
+            height: 200px;
+            display: block;
+            padding: 30px;
+            -moz-transition: -moz-transform 2s;
+            -webkit-transition: -webkit-transform 2s;
+            -o-transition: -o-transform 2s;
+            -ms-transition: -ms-transform 2s;
+            transition: transform 2s;
+        }
+        #BodyX:hover
+        { 
+            -moz-transform: translateX(100px);
+            -webkit-transform: translateX(100px);
+            -o-transform: translateX(100px);
+            -ms-transform: translateX(100px);
+            transform: translateX(100px);
+        }
+        #BodyY
+        { 
+            width: auto;
+            height: 200px;
+            display: block;
+            padding: 30px;
+            -moz-transition: -moz-transform 2s;
+            -webkit-transition: -webkit-transform 2s;
+            -o-transition: -o-transform 2s;
+            -ms-transition: -ms-transform 2s;
+            transition: transform 2s;
+        }
+        #BodyY:hover
+        { 
+            -moz-transform: translateY(100px);
+            -webkit-transform: translateY(100px);
+            -ms-transform: translateY(100px);
+            -o-transform: translateY(100px);
+            transform: translateY(100px);
+        }
+         #Body3D
+        { 
+            width: auto;
+            height: 200px;
+            display: block;
+            padding: 30px;
+            -moz-transition: -moz-transform 2s;
+            -webkit-transition: -webkit-transform 2s;
+            -o-transition: -o-transform 2s;
+            -ms-transition: -ms-transform 2s;
+            transition: transform 2s;
+        }
+        #Body3D:hover
+        { 
+            -moz-transform: translate3D(100px,-100px,100px);
+            -webkit-transform: translate3D(100px,-100px,100px);
+            -ms-transform: translate3D(100px,-100px,100px);
+            -o-transform: translate3D(100px,-100px,100px);
+            transform: translate3D(100px,-100px,100px);
+        }
+        #h
+        {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border-style: solid;
+        }
+            /*#h:hover
+            {
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+            }*/
+        #b 
+        {
+            width: 0px;
+            height: 70px;
+              border-left: 0px solid black;
+              padding-left: 25px;				      	
+              border-style: solid;
+              border-top-style: none;
+              border-bottom-style: none;
+         }
+             /*
+            #b:hover 
+            {
+                width: 0px;
+                height: 100px;
+                  border-left: 1px solid black;
+          }*/
+        #l1 
+        {
+            width: 0px;
+            height: 50px;
+              border-left: 0px solid black;
+              position: absolute;
+              border-style: solid;
+              -moz-transform: translate(6px, -65px) rotate(45deg);
+        }
+        #hand1 
+            {
+                width: 0px;
+                height: 50px;
+                  border-left: 0px solid black;
+                  position: absolute;
+                  border-style: solid;
+                  -moz-transform: translate(6px, -60px) rotate(45deg);
+            }
+            /*#l1:hover 
+            {
+                width: 0px;
+                height: 100px;
+                  border-left: 1px solid black;
+              }*/
+         #hand2 
+            {
+                width: 0px;
+                height: 50px;
+                  border-left: 0px solid black;
+                  position: relative;
+                  border-style: solid;
+                  -moz-transform: translate(45px, -60px) rotate(-45deg);
+            }
+        #l2 
+        {
+            width: 0px;
+            height: 50px;
+              border-left: 0px solid black;
+              position: relative;
+              border-style: solid;
+              -moz-transform: translate(45px, -65px) rotate(-45deg);
+        }
+    </style>
+</head>
+
+<body>
+        <h1>Stick-figure</h1>
+        <hr>        
+        <br>
+        <pre>Hover over figures to see the effects</pre><br>
+        <h3>Transition-X</h3>
+        <div id="BodyX">
+          <div id="stickfigure">
+            <div id="h"></div>
+            <div id="b"></div>
+            <div id="hand1"></div>
+            <div id="hand2"></div>
+            <div id="l1"></div>
+            <div id="l2"></div>
+          </div>
+        </div>
+        
+        <h3>Transition-Y</h3>
+        <div id="BodyY">
+            <div id="h"></div>
+            <div id="b"></div>
+            <div id="hand1"></div>
+            <div id="hand2"></div>
+            <div id="l1"></div>
+            <div id="l2"></div>
+        </div>
+        <h3>Transition-3D</h3>
+        <div id="Body3D">
+            <div id="h"></div>
+            <div id="b"></div>
+            <div id="hand1"></div>
+            <div id="hand2"></div>
+            <div id="l1"></div>
+            <div id="l2"></div>
+        </div>
+        
+        <br><br>
+
+  <div id="stickfigure"></div>
+</body></html>
