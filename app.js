@@ -12,8 +12,46 @@ const server = http.createServer((req, res) => {
 
   // define the route handlers using a switch statement
   switch(path) {
-    case '/':
+   case '/':
   res.setHeader('Content-Type', 'text/html');
+  res.write('<!DOCTYPE html>');
+  res.write('<html>');
+  res.write('<head>');
+  res.write('<meta charset="utf-8">');
+  res.write('<title>Hangman Game</title>');
+  res.write('<style>');
+  res.write('body {');
+  res.write('  font-family: Arial, sans-serif;');
+  res.write('  background-color: #F0F0F0;');
+  res.write('}');
+  res.write('h1 {');
+  res.write('  text-align: center;');
+  res.write('  margin-top: 50px;');
+  res.write('}');
+  res.write('ul {');
+  res.write('  list-style: none;');
+  res.write('  margin: 50px auto;');
+  res.write('  padding: 0;');
+  res.write('  width: 300px;');
+  res.write('}');
+  res.write('li {');
+  res.write('  margin-bottom: 20px;');
+  res.write('}');
+  res.write('a {');
+  res.write('  display: block;');
+  res.write('  padding: 10px;');
+  res.write('  background-color: #0066CC;');
+  res.write('  color: #FFF;');
+  res.write('  text-align: center;');
+  res.write('  text-decoration: none;');
+  res.write('  border-radius: 5px;');
+  res.write('}');
+  res.write('a:hover {');
+  res.write('  background-color: #0052A3;');
+  res.write('}');
+  res.write('</style>');
+  res.write('</head>');
+  res.write('<body>');
   res.write('<h1>Welcome to the Hangman Game!</h1>');
   res.write('<ul>');
   res.write('<li><a href="/play">Play</a></li>');
@@ -21,6 +59,8 @@ const server = http.createServer((req, res) => {
   res.write('<li><a href="/submit">Submit New Word</a></li>');
   res.write('<li><a href="/highscores">High Scores</a></li>');
   res.write('</ul>');
+  res.write('</body>');
+  res.write('</html>');
   res.end();
   break;
     case '/play':
