@@ -11,58 +11,58 @@ const server = http.createServer((req, res) => {
   const path = parsedUrl.pathname;
 
   // define the route handlers using a switch statement
-  switch(path) {
-   case '/':
-  res.setHeader('Content-Type', 'text/html');
-  res.write('<!DOCTYPE html>');
-  res.write('<html>');
-  res.write('<head>');
-  res.write('<meta charset="utf-8">');
-  res.write('<title>Hangman Game</title>');
-  res.write('<style>');
-  res.write('body {');
-  res.write('  font-family: Arial, sans-serif;');
-  res.write('  background-color: #F0F0F0;');
-  res.write('}');
-  res.write('h1 {');
-  res.write('  text-align: center;');
-  res.write('  margin-top: 50px;');
-  res.write('}');
-  res.write('ul {');
-  res.write('  list-style: none;');
-  res.write('  margin: 50px auto;');
-  res.write('  padding: 0;');
-  res.write('  width: 300px;');
-  res.write('}');
-  res.write('li {');
-  res.write('  margin-bottom: 20px;');
-  res.write('}');
-  res.write('a {');
-  res.write('  display: block;');
-  res.write('  padding: 10px;');
-  res.write('  background-color: #0066CC;');
-  res.write('  color: #FFF;');
-  res.write('  text-align: center;');
-  res.write('  text-decoration: none;');
-  res.write('  border-radius: 5px;');
-  res.write('}');
-  res.write('a:hover {');
-  res.write('  background-color: #0052A3;');
-  res.write('}');
-  res.write('</style>');
-  res.write('</head>');
-  res.write('<body>');
-  res.write('<h1>Welcome to the Hangman Game!</h1>');
-  res.write('<ul>');
-  res.write('<li><a href="/play">Play</a></li>');
-  res.write('<li><a href="/instructions">How to Play</a></li>');
-  res.write('<li><a href="/submit">Submit New Word</a></li>');
-  res.write('<li><a href="/highscores">High Scores</a></li>');
-  res.write('</ul>');
-  res.write('</body>');
-  res.write('</html>');
-  res.end();
-  break;
+  switch (path) {
+    case '/':
+      res.setHeader('Content-Type', 'text/html');
+      res.write('<!DOCTYPE html>');
+      res.write('<html>');
+      res.write('<head>');
+      res.write('<meta charset="utf-8">');
+      res.write('<title>Hangman Game</title>');
+      res.write('<style>');
+      res.write('body {');
+      res.write('  font-family: Arial, sans-serif;');
+      res.write('  background-color: #F0F0F0;');
+      res.write('}');
+      res.write('h1 {');
+      res.write('  text-align: center;');
+      res.write('  margin-top: 50px;');
+      res.write('}');
+      res.write('ul {');
+      res.write('  list-style: none;');
+      res.write('  margin: 50px auto;');
+      res.write('  padding: 0;');
+      res.write('  width: 300px;');
+      res.write('}');
+      res.write('li {');
+      res.write('  margin-bottom: 20px;');
+      res.write('}');
+      res.write('a {');
+      res.write('  display: block;');
+      res.write('  padding: 10px;');
+      res.write('  background-color: #0066CC;');
+      res.write('  color: #FFF;');
+      res.write('  text-align: center;');
+      res.write('  text-decoration: none;');
+      res.write('  border-radius: 5px;');
+      res.write('}');
+      res.write('a:hover {');
+      res.write('  background-color: #0052A3;');
+      res.write('}');
+      res.write('</style>');
+      res.write('</head>');
+      res.write('<body>');
+      res.write('<h1>Welcome to the Hangman Game!</h1>');
+      res.write('<ul>');
+      res.write('<li><a href="/play">Play</a></li>');
+      res.write('<li><a href="/instructions">How to Play</a></li>');
+      res.write('<li><a href="/submit">Submit New Word</a></li>');
+      res.write('<li><a href="/highscores">High Scores</a></li>');
+      res.write('</ul>');
+      res.write('</body>');
+      res.write('</html>');
+      res.end();
+      break;
     case '/play':
       // send an HTML response with the hangman game
       res.setHeader('Content-Type', 'text/html');
@@ -78,10 +78,11 @@ const server = http.createServer((req, res) => {
       res.write('<body>');
       res.write('<h1>Hangman Game - Play</h1>');
       // add HTML content for the hangman game
+      res.write('<a href="/">Go back to home page</a>');
       res.write('</body>');
       res.write('</html>');
       res.end();
-      break;  
+      break;
     case '/instructions':
       // send an HTML response with styled instructions on how to play the game
       res.setHeader('Content-Type', 'text/html');
@@ -125,32 +126,89 @@ const server = http.createServer((req, res) => {
       res.write('<h1>How to Play the Hangman Game</h1>');
       res.write('<div class="tutorial">');
       res.write('<h2>Objective</h2>');
-      res.write('<p>The objective of the Hangman game is to guess the secret word before you run out of attempts. Each incorrect guess will result in a new body part being added to the hangman, and once the hangman is complete, the game is over. Good luck!</p>');
+      res.write('<p>The objective of the game is to guess the hidden word correctly within a limited number of guesses.</p>');
       res.write('<h2>Instructions</h2>');
       res.write('<p>Follow these steps to play the game:</p>');
       res.write('<ol>');
-      res.write('<li>Click the "Play" button on the main menu to start a new game.</li>');
-      res.write('<li>Guess letters one at a time by clicking on the letter buttons or typing on your keyboard. You can only guess a letter once, so choose carefully!</li>');
-      res.write('<li>If your guess is correct, the letter will be revealed in the secret word. If your guess is incorrect, a new body part will be added to the hangman.</li>');
-      res.write('<li>Continue guessing until you either guess the entire word or the hangman is complete.</li>');
-      res.write('<li>After the game is over, you will see your score and have the option to play again or return to the main menu.</li>');
+      res.write('<li>The game will display a mini stick figure and the number 6 next to it. Underneath the stick figure, there will be blank spaces with underlines, representing each letter of a word.</li>');
+      res.write('<li>Guess the letters of the word one at a time, by typing them in the input field provided.</li>');
+      res.write('<li>For each correct letter guessed, you will earn 2 points.</li>');
+      res.write('<li>If the guessed letter is incorrect, the number next to the mini stick figure will decrease by one.</li>');
+      res.write('<li>If you run out of guesses and the number next to the mini stick figure reaches zero, you lose the game and gain no points.</li>');
+      res.write('<li>When you correctly guess all the letters of the word, you win the game and earn points.</li>');
+      res.write('<li>The game will end after each round, and you can play again by clicking the "Play Again" button.</li>');
       res.write('</ol>');
       res.write('</div>');
+      res.write('<a href="/">Go back to home page</a>');
       res.write('</body>');
       res.write('</html>');
       res.end();
-      break;      
+      break;
     case '/submit':
-      // send an HTML response with a form to submit a new word
+      // send an HTML response with a form to submit a new word for the game
       res.setHeader('Content-Type', 'text/html');
-      res.write('<h1>Submit a New Word</h1>');
-      res.write('<form action="/submit" method="POST">');
+      res.write('<!DOCTYPE html>');
+      res.write('<html>');
+      res.write('<head>');
+      res.write('<meta charset="utf-8">');
+      res.write('<title>Hangman Game - Submit New Word</title>');
+      res.write('<style>');
+      res.write('body {');
+      res.write('  font-family: Arial, sans-serif;');
+      res.write('  background-color: #F0F0F0;');
+      res.write('}');
+      res.write('h1 {');
+      res.write('  text-align: center;');
+      res.write('  margin-top: 50px;');
+      res.write('}');
+      res.write('.form-container {');
+      res.write('  background-color: #FFF;');
+      res.write('  border: 2px solid #000;');
+      res.write('  border-radius: 5px;');
+      res.write('  padding: 20px;');
+      res.write('  margin: 50px auto;');
+      res.write('  width: 80%;');
+      res.write('}');
+      res.write('label {');
+      res.write('  display: block;');
+      res.write('  margin-bottom: 5px;');
+      res.write('}');
+      res.write('input[type="text"], textarea {');
+      res.write('  width: 100%;');
+      res.write('  padding: 10px;');
+      res.write('  border-radius: 5px;');
+      res.write('  border: 1px solid #000;');
+      res.write('  margin-bottom: 20px;');
+      res.write('}');
+      res.write('input[type="submit"] {');
+      res.write('  display: block;');
+      res.write('  margin: 0 auto;');
+      res.write('  padding: 10px 20px;');
+      res.write('  background-color: #0066CC;');
+      res.write('  color: #FFF;');
+      res.write('  border-radius: 5px;');
+      res.write('  border: none;');
+      res.write('}');
+      res.write('input[type="submit"]:hover {');
+      res.write('  background-color: #0052A3;');
+      res.write('}');
+      res.write('</style>');
+      res.write('</head>');
+      res.write('<body>');
+      res.write('<h1>Submit a New Word for the Hangman Game</h1>');
+      res.write('<div class="form-container">');
+      res.write('<form method="post" action="/submit">');
       res.write('<label for="word">Enter a new word:</label>');
       res.write('<input type="text" id="word" name="word">');
-      res.write('<button type="submit">Submit</button>');
+      res.write('<input type="submit" value="Submit">');
       res.write('</form>');
+      res.write('</div>');
+      res.write('<a href="/">Go back to home page</a>');
+      res.write('</body>');
+      res.write('</html>');
       res.end();
       break;
+
     case '/highscores':
       // send a HTML response with the high scores
       const scores = [
@@ -172,7 +230,7 @@ const server = http.createServer((req, res) => {
       table += '<tbody>';
       for (let i = 0; i < scores.length; i++) {
         const score = scores[i];
-        table += `<tr><td>${score.username}</td><td>${score.score}</td></tr>`;
+        table += '<tr><td>${score.username}</td><td>${score.score}</td></tr>';
       }
       table += '</tbody>';
       table += '</table>';
@@ -213,6 +271,7 @@ const server = http.createServer((req, res) => {
       res.write('</head>');
       res.write('<body>');
       res.write(table);
+      res.write('<a href="/">Go back to home page</a>');
       res.write('</body>');
       res.write('</html>');
       res.end();
@@ -228,5 +287,5 @@ const server = http.createServer((req, res) => {
 // run command node app.js in terminal to start server
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+  console.log('Server listening on port ${PORT}');
 });
