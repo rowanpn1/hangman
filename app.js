@@ -73,6 +73,17 @@ const server = http.createServer((req, res) => {
       res.setHeader('Content-Type', 'text/plain');
       res.end('Welcome to the Hangman game! \nTo play the game, simply guess letters one at a time until you can guess the entire word. \nYou can only guess a letter once, so choose carefully! \nYou can play as many times as you like to try and improve your score.');
       break;
+    case '/submit':
+      // send an HTML response with a form to submit a new word
+      res.setHeader('Content-Type', 'text/html');
+      res.write('<h1>Submit a New Word</h1>');
+      res.write('<form action="/submit" method="POST">');
+      res.write('<label for="word">Enter a new word:</label>');
+      res.write('<input type="text" id="word" name="word">');
+      res.write('<button type="submit">Submit</button>');
+      res.write('</form>');
+      res.end();
+      break;
     case '/highscores':
       // send a JSON response with the high scores
       const scores = [
