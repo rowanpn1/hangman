@@ -1,5 +1,3 @@
-//FIXED
-
 // require the http and url modules
 const http = require('http');
 const url = require('url');
@@ -85,24 +83,63 @@ const server = http.createServer((req, res) => {
       res.end();
       break;  
     case '/instructions':
-      // send a plain text response with instructions on how to play the game
+      // send an HTML response with styled instructions on how to play the game
       res.setHeader('Content-Type', 'text/html');
       res.write('<!DOCTYPE html>');
       res.write('<html>');
       res.write('<head>');
       res.write('<meta charset="utf-8">');
-      res.write('<title>Hangman Game - Play</title>');
+      res.write('<title>Hangman Game - How to Play</title>');
       res.write('<style>');
+      res.write('body {');
+      res.write('  font-family: Arial, sans-serif;');
+      res.write('  background-color: #F0F0F0;');
+      res.write('}');
+      res.write('h1 {');
+      res.write('  text-align: center;');
+      res.write('  margin-top: 50px;');
+      res.write('}');
+      res.write('.tutorial {');
+      res.write('  background-color: #FFF;');
+      res.write('  border: 2px solid #000;');
+      res.write('  border-radius: 5px;');
+      res.write('  padding: 20px;');
+      res.write('  margin: 50px auto;');
+      res.write('  width: 80%;');
+      res.write('}');
+      res.write('h2 {');
+      res.write('  text-align: center;');
+      res.write('}');
+      res.write('p {');
+      res.write('  margin-bottom: 10px;');
+      res.write('}');
+      res.write('ol {');
+      res.write('  margin: 0 0 20px 40px;');
+      res.write('}');
+      res.write('li {');
+      res.write('  margin-bottom: 5px;');
+      res.write('}');
       res.write('</style>');
       res.write('</head>');
       res.write('<body>');
-      res.write('<h1>Instructions</h1>');
-      res.write('<p>Welcome to the Hangman game! <br> To play the game, simply guess letters one at a time until you can guess the entire word. <br>You can only guess a letter once, so choose carefully! <br>You can play as many times as you like to try and improve your score.</p>')
+      res.write('<h1>How to Play the Hangman Game</h1>');
+      res.write('<div class="tutorial">');
+      res.write('<h2>Objective</h2>');
+      res.write('<p>The objective of the Hangman game is to guess the secret word before you run out of attempts. Each incorrect guess will result in a new body part being added to the hangman, and once the hangman is complete, the game is over. Good luck!</p>');
+      res.write('<h2>Instructions</h2>');
+      res.write('<p>Follow these steps to play the game:</p>');
+      res.write('<ol>');
+      res.write('<li>Click the "Play" button on the main menu to start a new game.</li>');
+      res.write('<li>Guess letters one at a time by clicking on the letter buttons or typing on your keyboard. You can only guess a letter once, so choose carefully!</li>');
+      res.write('<li>If your guess is correct, the letter will be revealed in the secret word. If your guess is incorrect, a new body part will be added to the hangman.</li>');
+      res.write('<li>Continue guessing until you either guess the entire word or the hangman is complete.</li>');
+      res.write('<li>After the game is over, you will see your score and have the option to play again or return to the main menu.</li>');
+      res.write('</ol>');
+      res.write('</div>');
       res.write('</body>');
       res.write('</html>');
       res.end();
-      //res.end('Welcome to the Hangman game! \nTo play the game, simply guess letters one at a time until you can guess the entire word. \nYou can only guess a letter once, so choose carefully! \nYou can play as many times as you like to try and improve your score.');
-      break;
+      break;      
     case '/submit':
       // send an HTML response with a form to submit a new word
       res.setHeader('Content-Type', 'text/html');
