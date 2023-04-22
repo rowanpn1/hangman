@@ -1,57 +1,77 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const Game = require('./models/game');
+const express = require("express");
+const path = require("path");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const { generateRandomWord, createGame } = require("./game");
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-mongoose.connect('mongodb://localhost:27017/wordgame', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('Connected to database!');
-  })
-  .catch(() => {
-    console.log('Connection failed!');
-  });
+// connect to MongoDB
+mongoose.connect("mongodb://localhost:27017/hangmanDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
+// create a schema for the words collection
+const wordSchema = new mongoose.Schema({
+  word: {
+    type: String,
+    required: true,
+    trim: true,
+    lowercase: true,
+    unique: true,
+  },
+});
+
+// create a model for the words collection
+const Word = mongoose.model("Word", wordSchema);
+
+// set up body parser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-  res.render('mainmenu');
+// set up static directory to serve
+app.use(express.static(path.join(__dirname, "public")));
+
+// set up views directory and view engine
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
+// define routes
+app.get("/", (req, res) => {
+  res.render("index");
 });
 
-app.get('/play', (req, res) => {
-  res.render('play');
+app.get("/play", async (req, res) => {
+  const word = await generateRandomWord(); // generate a random word
+  const game = createGame(word); // create a game object with the random word
+  res.render("play", { game });
 });
 
-app.post('/play', async (req, res) => {
-  const game = new Game({
-    words: req.body.words,
-    score: req.body.score
-  });
+app.post("/submit-word", async (req, res) => {
+  const word = new Word(req.body); // create a new Word document with the submitted word
   try {
-    await game.save();
-    console.log('Word saved successfully!');
-  } catch {
-    console.log('Word failed to save!');
+    await word.save(); // save the new Word document to the words collection
+    res.send(`Word "${word.word}" successfully saved!`);
+  } catch (error) {
+    res.send(`Error saving word "${word.word}": ${error}`);
   }
-  res.redirect('/play');
 });
 
-app.get('/submitword', (req, res) => {
-  res.render('submitword');
+app.get("/instructions", (req, res) => {
+  res.render("instructions");
 });
 
-app.get('/instructions', (req, res) => {
-  res.render('instructions');
+app.get("/highscores", async (req, res) => {
+  try {
+    const words = await Word.find().sort({ word: 1 }); // find all words in the words collection and sort them alphabetically
+    res.render("highscores", { words });
+  } catch (error) {
+    res.send(`Error getting high scores: ${error}`);
+  }
 });
 
-app.get('/highscores', async (req, res) => {
-  const games = await Game.find().sort({ score: -1 });
-  res.render('highscores', { games });
-});
-
-app.listen(3000, () => {
-  console.log('Server started on port 3000');
+// start the server
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}...`);
 });
