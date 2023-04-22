@@ -1,46 +1,89 @@
 const express = require('express');
+const session = require('express-session');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const { words } = require('./db');
-const Game = require('./game');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-mongoose.connect('mongodb://localhost:27017/HangmanDB', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// setup session middleware
+app.use(
+  session({
+    secret: 'hangman game',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 },
+  })
+);
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static('public'));
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/public'));
 
-app.get('/', (req, res) => {
-  res.render('index');
+// set up routes
+app.get('/', async (req, res) => {
+  try {
+    const word = await words.findOne();
+    const puzzle = word.word.replace(/[a-zA-Z]/g, '_');
+    req.session.word = word.word;
+    req.session.puzzle = puzzle;
+    req.session.guesses = [];
+    req.session.status = 'playing';
+    res.render('index', { puzzle: req.session.puzzle, status: req.session.status });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal server error');
+  }
 });
 
-app.get('/play', async (req, res) => {
-  const word = await words.aggregate([{ $sample: { size: 1 } }]).toArray();
-  const game = new Game(word[0].word);
-  res.render('play', { game });
-});
-
-app.post('/submit-word', async (req, res) => {
-  const { word } = req.body;
-  if (word) {
-    await words.insertOne({ word });
+app.post('/make-guess', (req, res) => {
+  const guess = req.body.guess.toLowerCase();
+  if (req.session.guesses.includes(guess)) {
+    req.session.status = 'duplicate';
+  } else if (guess.length === 1) {
+    const word = req.session.word;
+    const puzzle = req.session.puzzle.split('');
+    let correctGuess = false;
+    for (let i = 0; i < word.length; i++) {
+      if (word[i].toLowerCase() === guess) {
+        puzzle[i] = word[i];
+        correctGuess = true;
+      }
+    }
+    req.session.puzzle = puzzle.join('');
+    if (req.session.puzzle === word) {
+      req.session.status = 'win';
+    } else if (correctGuess) {
+      req.session.status = 'correct';
+    } else {
+      req.session.status = 'incorrect';
+    }
+    req.session.guesses.push(guess);
+  } else if (guess === req.session.word.toLowerCase()) {
+    req.session.status = 'win';
+  } else {
+    req.session.status = 'incorrect';
   }
   res.redirect('/');
-});
-
-app.get('/instructions', (req, res) => {
-  res.render('instructions');
 });
 
 app.get('/highscores', (req, res) => {
   res.render('highscores');
 });
 
-app.listen(3000, () => {
-  console.log('Server started on port 3000');
+app.get('/submit-word', (req, res) => {
+  res.render('submit-word');
 });
+
+app.post('/submit-word', async (req, res) => {
+  try {
+    const word = req.body.word.trim();
+    await words.insertOne({ word });
+    res.redirect('/');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal server error');
+  }
+});
+
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
