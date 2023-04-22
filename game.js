@@ -1,5 +1,5 @@
 // import the words collection from MongoDB
-const db = require("./mongodb").words;
+const db = require("mongodb").words;
 
 // function to generate a random word from the words collection
 async function generateRandomWord() {
