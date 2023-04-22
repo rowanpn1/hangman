@@ -3,6 +3,9 @@ const http = require('http');
 const url = require('url');
 const fs = require('fs');
 
+//require database file
+const db = require('./HangmanDB');
+
 // require the game logic module
 const Game = require('./game.js');
 
