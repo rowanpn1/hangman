@@ -1,4 +1,5 @@
 const { MongoClient } = require('mongodb');
+
 const uri = 'mongodb://localhost:27017';
 const client = new MongoClient(uri);
 
@@ -40,3 +41,7 @@ client.connect((err) => {
   // close the database connection when done
   client.close();
 });
+
+module.exports = {
+  words: client.db('HangmanDB').collection('words'),
+};
