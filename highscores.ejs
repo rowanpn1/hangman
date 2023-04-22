@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hangman Highscores</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/play">Play Game</a></li>
+                <li><a href="/submit-word">Submit Word</a></li>
+                <li><a href="/instructions">Instructions</a></li>
+                <li><a href="/highscores">Highscores</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Hangman Highscores</h1>
+        <% if(highscores && highscores.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i<highscores.length; i++) { %>
+                <tr>
+                    <td><%= i+1 %></td>
+                    <td><%= highscores[i].name %></td>
+                    <td><%= highscores[i].score %></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <% } else { %>
+        <p>No highscores yet!</p>
+        <% } %>
+    </main>
+</body>
+
+</html>
