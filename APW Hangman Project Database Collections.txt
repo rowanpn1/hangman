@@ -1,0 +1,146 @@
+
+
+test> use APWMyDB
+switched to db APWMyDB
+APWMyDB> db.createCollection("users")
+{ ok: 1 }
+APWMyDB> db.collection.insert({_id: ObjectId("615bdf0b216547a2f759c9c7"), username: "user123", password: "hashed_password", high_score: 100, games_played: 10, created_at: ISODat(e"2023-04-10T12:34:56.789Z")})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:170)
+
+> 1 | db.collection.insert({_id: ObjectId("615bdf0b216547a2f759c9c7"), username: "user123", password: "hashed_password", high_score: 100, games_played: 10, created_at: ISODat(e"2023-04-10T12:34:56.789Z")})
+    |                                                                                                                                           
+                                ^
+  2 |
+
+APWMyDB> db.collection.insert({_id: ObjectId("615bdf0b216547a2f759c9c7"), username: "user123", password: "hashed_password", high_score: 100, games_played: 10, created_at: ISODate("2023-04-10T12:34:56.789Z")})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("615bdf0b216547a2f759c9c7") }
+}
+APWMyDB> db.createCollection("scores")
+{ ok: 1 }
+APWMyDB> db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9b8"), word: "hangman", hint: "A popular word guessing game", user_id: 1, crcreated_at: ISODate("2023-04-10T12:34:56.789Z")})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("615bdf0b216547a2f759c9b8") }
+}
+APWMyDB> db.createCollection("lobbies")
+{ ok: 1 }
+APWMyDB> db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9d6"), lobby_id: "lobby123", players: [ {user_id: 1, username: "user1", {user_id: 2, username: "user2"}, {user_id: "user3", username: "user3"}, {user_id: "user4", username: "user4"}], created_at:ISODate("2023-04-10T12:34
+56.789Z")})
+Uncaught:
+SyntaxError: Unexpected token (1:131)
+
+> 1 | db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9d6"), lobby_id: "lobby123", players: [ {user_id: 1, username: "user1", {user_id: 2, username: "user2"}, {user_id: "user3", username: "user3"}, {user_id: "user4", username: "user4"}], created_at:ISODate("2023-04-10T12:3456.789Z")})
+    |                                                                                                                                    ^      
+  2 |
+
+APWMyDB> db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9d6"), lobby_id: "lobby123", players: [ {user_id: 1, username: "user1", {useAPWMyDB> db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9d6"), lobby_id: "lobby123", players: [ {user_id: 1, username: "user1", {user_id: 2, username: "user2"}, {user_id: "user3", username: "user3"}, {user_id: "user4", username: "user4"}], created_at:ISODate("2023-04-10T12:34:56.789Z")})
+Uncaught:
+SyntaxError: Unexpected token (1:131)
+
+> 1 | db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9d6"), lobby_id: "lobby123", players: [ {user_id: 1, username: "user1", {user_id: 2, username: "user2"}, {user_id: "user3", username: "user3"}, {user_id: "user4", username: "user4"}], created_at:ISODate("2023-04-10T12:34:56.789Z")})
+    |                                                                                                                                    ^      
+  2 |
+
+APWMyDB> db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9d6"), lobby_id: "lobby123", players: [ {user_id: 1, username: "user1", {use
+APWMyDB> db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9d6"), lobby_id: "lobby123", players: [ {user_id: 1, username: "user1", {user_id: 2, username: "user2"}, {user_id: "user3", username: "user3"}, {user_id: "user4", username: "user4"}], created_at:ISODate("2023-04-10T12:34:56.789Z")})
+Uncaught:
+SyntaxError: Unexpected token (1:131)
+
+> 1 | db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9d6"), lobby_id: "lobby123", players: [ {user_id: 1, username: "user1", {user_id: 2, username: "user2"}, {user_id: "user3", username: "user3"}, {user_id: "user4", username: "user4"}], created_at:ISODate("2023-04-10T12:34:56.789Z")})
+    |                                                                                                                                    ^      
+  2 |
+
+APWMyDB>  db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9d6"), lobby_id: "lobby123", players: [ {user_id: 1, username: "user1", {user_id: 2, username: "user2"}, {user_id: "user3", username: "user3"}, {user_id: "user4", username: "user4"}], created_at:ISODate("2023-04-10T12:34:56.789Z")})
+Uncaught:
+SyntaxError: Unexpected token (1:132)
+
+> 1 |  db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9d6"), lobby_id: "lobby123", players: [ {user_id: 1, username: "user1", {user_id: 2, username: "user2"}, {user_id: "user3", username: "user3"}, {user_id: "user4", username: "user4"}], created_at:ISODate("2023-04-10T12:34:56.789Z")})
+    |                                                                                                                                     ^     
+  2 |
+
+APWMyDB>  db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9d6"), lobby_id: "lobby123", players: [ {user_id: 1, username: "user1", {us
+APWMyDB> db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9d6"), lobby_id: "lobby123", players: [ {user_id: 1, username: "user1", {useAPWMyDB> db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9d6"), lobby_id: "lobby123", players: [ {user_id: 1, username: "user1", {user_id: 2, username: "user2"}, {user_id: "user3", username: "user3"}, {user_id: "user4", username: "user4"}], created_at:ISODate("2023-04-10T12:34
+
+Uncaught:
+SyntaxError: Unexpected token (1:131)
+
+> 1 | db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9d6"), lobby_id: "lobby123", players: [ {user_id: 1, username: "user1", {user_id: 2, username: "user2"}, {user_id: "user3", username: "user3"}, {user_id: "user4", username: "user4"}], created_at:ISODate("2023-04-10T12:34   
+    |                                                                                                                                    ^      
+  2 |
+
+APWMyDB> db.createCollection("words")
+{ ok: 1 }
+APWMyDB> db.collection.insert(_id:  ObjectId("615bdf0b216547a2f759c9b8"), word: "hangman", hint: "A popular word guessing game", user_id: 1, crecreated_at:  ISODate("2023-04-10T12:34:56.789Z")})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:24)
+
+> 1 | db.collection.insert(_id:  ObjectId("615bdf0b216547a2f759c9b8"), word: "hangman", hint: "A popular word guessing game", user_id: 1, created_at:  ISODate("2023-04-10T12:34:56.789Z")})
+    |                         ^
+  2 |
+
+APWMyDB> db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9b8"), word: "hangman", hint: "A popular word guessing game", user_id: 1, created_at:  ISODate("2023-04-10T12:34:56.789Z")}
+...
+APWMyDB> db.collection.insert({_id:  ObjectId("615bdf0b216547a2f759c9b8"), word: "hangman", hint: "A popular word guessing game", user_id: 1, created_at:  ISODate("2023-04-10T12:34:56.789Z")})
+Uncaught:
+MongoBulkWriteError: E11000 duplicate key error collection: APWMyDB.collection index: _id_ dup key: { _id: ObjectId('615bdf0b216547a2f759c9b8') }
+Result: BulkWriteResult {
+  insertedCount: 0,
+  matchedCount: 0,
+  modifiedCount: 0,
+  deletedCount: 0,
+  upsertedCount: 0,
+  upsertedIds: {},
+  insertedIds: { '0': ObjectId("615bdf0b216547a2f759c9b8") }
+}
+Write Errors: [
+  WriteError {
+    err: {
+      index: 0,
+      code: 11000,
+      errmsg: "E11000 duplicate key error collection: APWMyDB.collection index: _id_ dup key: { _id: ObjectId('615bdf0b216547a2f759c9b8') }",   
+      errInfo: undefined,
+      op: {
+        _id: ObjectId("615bdf0b216547a2f759c9b8"),
+        word: 'hangman',
+        hint: 'A popular word guessing game',
+        user_id: 1,
+        created_at: ISODate("2023-04-10T12:34:56.789Z")
+      }
+    }
+  }
+]
+APWMyDB> db.createCollection("lobbies")
+MongoServerError: Collection APWMyDB.lobbies already exists.
+APWMyDB> db.createCollection("incorrect_guesses")
+{ ok: 1 }
+APWMyDB> db.collection.insert({_id: ObjectId("60f1c292eb45fc3a01234567"), lobby_id: 1, player_id: "user1", letter: "z", created_at: new Date()} 
+...
+...
+...
+APWMyDB> db.collection.insert({_id: ObjectId("60f1c292eb45fc3a01234567"), lobby_id: 1, player_id: "user1", letter: "z", created_at: new Date()})
+
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("60f1c292eb45fc3a01234567") }
+}
+APWMyDB> db.createCollection("correct_guesses")
+{ ok: 1 }
+APWMyDB> db.collection.insert({_id: ObjectId("60f1c292eb45fc3a01234568"), lobby_id: 1, player_id: "user2", letter: "e", created_at: new Date()})
+
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("60f1c292eb45fc3a01234568") }
+}
+APWMyDB> db.collection.deleteOne({_id:  ObjectId("615bdf0b216547a2f759c9b8"), word: "hangman", hint: "A popular word guessing game", user_id: 1, crcreated_at: ISODate("2023-04-10T12:34:56.789Z")})
+{ acknowledged: true, deletedCount: 0 }
+APWMyDB> db.createCollection("scores")
+MongoServerError: Collection APWMyDB.scores already exists.
+APWMyDB> db.collection.insert({_id: ObjectId("615bdf0b216547a2f759c9d7"), user_id: 1, username: "user1", score: 100, correct_word: "hangman", created_at: ISODate("2023-04-10T12:34:56.789Z")})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("615bdf0b216547a2f759c9d7") }
+}
