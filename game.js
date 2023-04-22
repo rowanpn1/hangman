@@ -1,51 +1,78 @@
 const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://localhost:27017';
 const dbName = 'hangman';
-const collectionName = 'words';
 
-const getWordFromDb = (callback) => {
-  MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+function getRandomWord(callback) {
+  MongoClient.connect(url, (err, client) => {
     if (err) {
-      console.log('Error connecting to MongoDB:', err);
-      return callback(err);
+      console.error(err);
+      return;
     }
     const db = client.db(dbName);
-    const collection = db.collection(collectionName);
-    collection.aggregate([ { $sample: { size: 1 } } ]).toArray((err, docs) => {
+    const words = db.collection('words');
+    words.countDocuments((err, count) => {
       if (err) {
-        console.log('Error getting word from MongoDB:', err);
-        return callback(err);
+        console.error(err);
+        client.close();
+        return;
       }
-      callback(null, docs[0].word);
-      client.close();
+      const index = Math.floor(Math.random() * count);
+      words.findOne({}, { skip: index }, (err, result) => {
+        if (err) {
+          console.error(err);
+          client.close();
+          return;
+        }
+        callback(result.word);
+        client.close();
+      });
     });
   });
-};
+}
 
-const checkGuess = (guess, word, guessedLetters) => {
-  if (guessedLetters.includes(guess)) {
-    return { message: 'You already guessed that letter. Try again.' };
-  }
-  guessedLetters.push(guess);
-  if (word.includes(guess)) {
-    let letters = word.split('');
-    let numCorrect = 0;
-    letters.forEach((letter) => {
-      if (guessedLetters.includes(letter)) {
-        numCorrect++;
-      }
-    });
-    if (numCorrect === letters.length) {
-      return { message: 'Congratulations, you won!', won: true };
-    } else {
-      return { message: 'Good guess!', won: false };
+module.exports = function Game(word) {
+  this.word = word.toUpperCase();
+  this.guesses = new Set();
+  this.guessesLeft = 6;
+  this.gameOver = false;
+
+  this.maskedWord = this.word.split('').map((char) => {
+    if (char.match(/[A-Z]/)) {
+      return '_';
     }
-  } else {
-    return { message: 'Sorry, that letter is not in the word.', won: false };
-  }
-};
+    return char;
+  }).join('');
 
-module.exports = {
-  getWordFromDb,
-  checkGuess
+  this.guessLetter = function(letter) {
+    if (this.gameOver) {
+      return;
+    }
+
+    letter = letter.toUpperCase();
+    if (!letter.match(/[A-Z]/)) {
+      return;
+    }
+
+    if (this.guesses.has(letter)) {
+      return;
+    }
+
+    this.guesses.add(letter);
+
+    let found = false;
+    for (let i = 0; i < this.word.length; i++) {
+      if (this.word[i] === letter) {
+        this.maskedWord = this.maskedWord.substr(0, i) + letter + this.maskedWord.substr(i + 1);
+        found = true;
+      }
+    }
+
+    if (!found) {
+      this.guessesLeft--;
+    }
+
+    if (this.guessesLeft === 0 || this.maskedWord === this.word) {
+      this.gameOver = true;
+    }
+  };
 };
