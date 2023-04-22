@@ -1,0 +1,57 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const Game = require('./models/game');
+
+const app = express();
+
+mongoose.connect('mongodb://localhost:27017/wordgame', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to database!');
+  })
+  .catch(() => {
+    console.log('Connection failed!');
+  });
+
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => {
+  res.render('mainmenu');
+});
+
+app.get('/play', (req, res) => {
+  res.render('play');
+});
+
+app.post('/play', async (req, res) => {
+  const game = new Game({
+    words: req.body.words,
+    score: req.body.score
+  });
+  try {
+    await game.save();
+    console.log('Word saved successfully!');
+  } catch {
+    console.log('Word failed to save!');
+  }
+  res.redirect('/play');
+});
+
+app.get('/submitword', (req, res) => {
+  res.render('submitword');
+});
+
+app.get('/instructions', (req, res) => {
+  res.render('instructions');
+});
+
+app.get('/highscores', async (req, res) => {
+  const games = await Game.find().sort({ score: -1 });
+  res.render('highscores', { games });
+});
+
+app.listen(3000, () => {
+  console.log('Server started on port 3000');
+});
