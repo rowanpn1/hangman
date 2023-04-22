@@ -1,5 +1,5 @@
 // import the words collection from MongoDB
-const db = require("mongodb").words;
+const db = require("./HangmanDB").words;
 
 // function to generate a random word from the words collection
 async function generateRandomWord() {
@@ -58,14 +58,14 @@ function createGame(word) {
     // check if the game is over
     if (this.remainingGuesses === 0) {
       this.status = "failed";
-      console.log("Game over. The word was ${this.word}.");
+      console.log(`Game over. The word was ${this.word}.`);
     } else if (this.getPuzzle() === this.word) {
       this.status = "succeeded";
-      console.log("Congratulations! You guessed the word: ${this.word}.");
+      console.log(`Congratulations! You guessed the word: ${this.word}.`);
     } else {
-      console.log('Guesses: ${this.guesses.join(", ")}');
-      console.log("Remaining guesses: ${this.remainingGuesses}");
-      console.log("Puzzle: ${this.getPuzzle()}");
+      console.log(`Guesses: ${this.guesses.join(", ")}`);
+      console.log(`Remaining guesses: ${this.remainingGuesses}`);
+      console.log(`Puzzle: ${this.getPuzzle()}`);
     }
   };
 
