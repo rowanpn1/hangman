@@ -64,10 +64,24 @@ const server = http.createServer((req, res) => {
   res.end();
   break;
     case '/play':
-      // send a JSON response
-      res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify({ message: 'Playing the game...' }));
-      break;
+      // send an HTML response with the hangman game
+      res.setHeader('Content-Type', 'text/html');
+      res.write('<!DOCTYPE html>');
+      res.write('<html>');
+      res.write('<head>');
+      res.write('<meta charset="utf-8">');
+      res.write('<title>Hangman Game - Play</title>');
+      res.write('<style>');
+      // add CSS styles for the hangman game
+      res.write('</style>');
+      res.write('</head>');
+      res.write('<body>');
+      res.write('<h1>Hangman Game - Play</h1>');
+      // add HTML content for the hangman game
+      res.write('</body>');
+      res.write('</html>');
+      res.end();
+      break;  
     case '/instructions':
       // send a plain text response with instructions on how to play the game
       res.setHeader('Content-Type', 'text/plain');
