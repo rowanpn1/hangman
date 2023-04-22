@@ -13,10 +13,16 @@ const server = http.createServer((req, res) => {
   // define the route handlers using a switch statement
   switch(path) {
     case '/':
-      // send a plain text response
-      res.setHeader('Content-Type', 'text/plain');
-      res.end('This is the main menu!');
-      break;
+  res.setHeader('Content-Type', 'text/html');
+  res.write('<h1>Welcome to the Hangman Game!</h1>');
+  res.write('<ul>');
+  res.write('<li><a href="/play">Play</a></li>');
+  res.write('<li><a href="/instructions">How to Play</a></li>');
+  res.write('<li><a href="/submit">Submit New Word</a></li>');
+  res.write('<li><a href="/highscores">High Scores</a></li>');
+  res.write('</ul>');
+  res.end();
+  break;
     case '/play':
       // send a JSON response
       res.setHeader('Content-Type', 'application/json');
