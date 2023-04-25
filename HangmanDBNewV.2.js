@@ -8,14 +8,12 @@ async function run(); {
     try{
         await.client.connect;
 
-        const APWMyDB = client.db("APWMYDB"); 
+        const APWMyDB = client.db("APWMyDB"); 
         const users = APWMyDB.collection("users"); 
         const scores = APWMyDB.collection("scores"); 
         const words = APWMyDB.collection("words");
         const correct_guesses = APWMyDB.collection("correct_guesses");
         const incorrect_guesses = APWMyDB.collection("incorrect_guesses"); 
-
-        var collection = col;
 
         let users = dbManager.get().collection("users");
         let words = dbManager.get().collection("words");
@@ -30,6 +28,10 @@ async function run(); {
             password: "password1",
             created_at: new Date()
         }
+        const options = {
+            username: "user1"
+        }
+        const users = await users.findOne(query);
         const result = users.insertOne(doc);
 
         const database = client.db("APWMyDB");
@@ -41,6 +43,10 @@ async function run(); {
 
 
         }
+        const options = {
+        }
+        const words = await words.findOne(query);
+        
         const result = words.insertOne(doc);
 
         const database = client.db("scores"); 
@@ -61,16 +67,31 @@ async function run(); {
             created_at: new Date();
 
         }
+        
+        const options = {
+            sort = { score: -1 },
+            projection = {limit: 10 },
+              
+              }
+
+        const result = await scores.insertOne(doc);
+        const result = await scores.updateOne(filter, updateDoc);
+        const scores = await scores.findOne(query, options);
      
         const database = client.db("APWMyDB");
         const incorrect_guesses = database.collection("incorrect_guesses");
-
         const doc = {
             player_id: "user1",
             letter: "z",
             created_at: new Date(); 
         }
+        
+        const options = {
+            letter: "z"
+        }
+        
         const result = await incorrect_guesses.insertOne(doc);
+        const incorrect_guesses = await incorrect_guesses.findOne(query); 
 
         const database = client.db("correct_guesses"); 
         const correct_guesses = database.collection("correct_guesses");
@@ -83,8 +104,13 @@ async function run(); {
 
 
         }
-        const result = await.correct_guesses.insertOne(doc);
-
+        
+        const options = {
+            letter: "e",
+        }
+        
+        const result = await correct_guesses.insertOne(doc);
+        const correct_guesses = await correct_guesses.findOne(query);
 
     } finally {
         await.client.close(); 
