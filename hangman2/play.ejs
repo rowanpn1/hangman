@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hangman Game</title>
+  </head>
+  <body>
+    const username = prompt("Enter your username:", "text");
+   const  name = prompt("Enter your name:", "text");
+    if (username != null) {
+      document.getElementById("username").innerHTML = 
+      Hi + username + "Game is Starting!";
+
+    }
+    if (name != null){
+      document.getElementById("name").innerHTML = 
+      Hi + name + "Game is Starting!";
+    }
+
+    <h1>Hangman Game</h1>
+    <form action="/play" method="post">
+      <label for="username">Enter your username:</label>
+      <input type="text" id="username" name="username"><br><br>
+      <label for="name">Enter your name:</label>
+      <input type="text" id="name" name="name"><br><br> <!-- Add this line -->  
+      <button type="submit">Start Game</button>
+    </form>
+  </body>
+</html>
